@@ -10,7 +10,10 @@ module('Acceptance: Showusers', {
     App = startApp();
     server = new Pretender( function() {
         this.get('/users', function(request) {
-            var users = { users : [ {id:'id1', mydata:'data1' } ] }
+            var users = { users : [ 
+                {id:'id1', mydata:'data1' } ,
+                {id:'id2', mydata:'data2' } ,
+                ] }
             console.log('pretender is returning users : ' , JSON.stringify(users) );
             return [200, {"Content-Type": "application/json"}, JSON.stringify(users) ];
         });
@@ -28,6 +31,6 @@ test('visiting /', function() {
   andThen(function() {
     equal(currentPath(), 'index');
     equal(find('h1').length, 1);
-    equal(find('h2').length, 1);
+    equal(find('h2').length, 2);
   });
 });
